@@ -1,0 +1,145 @@
+version: 2
+
+models:
+  - name: battalion_incidents
+    description: "Summarized fire incident data by battalion and month"
+    columns:
+      - name: battalion
+        data_type: varchar(12)
+      
+      - name: incident_date_month
+        data_type: date
+        tests:
+          - not_null
+
+      - name: incidents_count
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_minutes_to_arrival
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_minutes_to_close
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_suppression_units
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_suppression_personnel
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_ems_units
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_ems_personnel
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_other_units
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_other_personnel
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_estimated_property_loss
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_estimated_contents_loss
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_fire_fatalities
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_fire_injuries
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_civilian_fatalities
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_civilian_injuries
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_number_of_alarms
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: count_detectors_present
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_number_of_floors_with_minimum_damage
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_number_of_floors_with_significant_damage
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_number_of_floors_with_heavy_damage
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: avg_number_of_floors_with_extreme_damage
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: count_automatic_extinguishing_system_present
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0

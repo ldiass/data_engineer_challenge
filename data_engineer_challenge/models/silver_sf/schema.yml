@@ -1,0 +1,267 @@
+version: 2
+
+models:
+  - name: fire_incidents
+    schema: silver_sf
+    columns:
+      - name: incident_number
+        data_type: varchar(10)
+        tests:
+          - not_null
+      - name: exposure_number
+        data_type: integer
+      
+      - name: id
+        data_type: varchar(10)
+      
+      - name: address
+        data_type: varchar(120)
+      
+      - name: incident_date
+        data_type: date
+      
+      - name: call_number
+        data_type: varchar(120)
+      
+      - name: alarm_dttm
+        data_type: timestamp
+      
+      - name: arrival_dttm
+        data_type: timestamp
+      
+      - name: close_dttm
+        data_type: timestamp
+      
+      - name: city
+        data_type: varchar(120)
+      
+      - name: zipcode
+        data_type: varchar(12)
+      
+      - name: battalion
+        data_type: varchar(12)
+      
+      - name: station_area
+        data_type: varchar(12)
+      
+      - name: box
+        data_type: varchar(32)
+      
+      - name: suppression_units
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+          
+      - name: suppression_personnel
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: ems_units
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: ems_personnel
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: other_units
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: other_personnel
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: first_unit_on_scene
+        data_type: varchar(64)
+      
+      - name: estimated_property_loss
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: estimated_contents_loss
+        data_type: float
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: fire_fatalities
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: fire_injuries
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: civilian_fatalities
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: civilian_injuries
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: number_of_alarms
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: primary_situation
+        data_type: varchar(120)
+      
+      - name: mutual_aid
+        data_type: varchar(120)
+      
+      - name: action_taken_primary
+        data_type: varchar(120)
+      
+      - name: action_taken_secondary
+        data_type: varchar(120)
+      
+      - name: action_taken_other
+        data_type: varchar(120)
+      
+      - name: detector_alerted_occupants
+        data_type: varchar(120)
+      
+      - name: property_use
+        data_type: varchar(120)
+      
+      - name: area_of_fire_origin
+        data_type: varchar(120)
+      
+      - name: ignition_cause
+        data_type: varchar(120)
+      
+      - name: ignition_factor_primary
+        data_type: varchar(120)
+      
+      - name: ignition_factor_secondary
+        data_type: varchar(120)
+      
+      - name: heat_source
+        data_type: varchar(120)
+      
+      - name: item_first_ignited
+        data_type: varchar(120)
+      
+      - name: human_factors_associated_with_ignition
+        data_type: varchar(120)
+      
+      - name: structure_type
+        data_type: varchar(120)
+      
+      - name: structure_status
+        data_type: varchar(120)
+      
+      - name: floor_of_fire_origin
+        data_type: integer
+
+      
+      - name: fire_spread
+        data_type: varchar(120)
+      
+      - name: no_flame_spread
+        data_type: varchar(120)
+      
+      - name: number_of_floors_with_minimum_damage
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: number_of_floors_with_significant_damage
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: number_of_floors_with_heavy_damage
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: number_of_floors_with_extreme_damage
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: detectors_present
+        data_type: varchar(120)
+      
+      - name: detector_type
+        data_type: varchar(120)
+      
+      - name: detector_operation
+        data_type: varchar(120)
+      
+      - name: detector_effectiveness
+        data_type: varchar(120)
+      
+      - name: detector_failure_reason
+        data_type: varchar(120)
+      
+      - name: automatic_extinguishing_system_present
+        data_type: varchar(120)
+      
+      - name: automatic_extinguishing_system_type
+        data_type: varchar(120)
+      
+      - name: automatic_extinguishing_system_performance
+        data_type: varchar(120)
+      
+      - name: automatic_extinguishing_system_failure_reason
+        data_type: varchar(120)
+      
+      - name: number_of_sprinkler_heads_operating
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+      
+      - name: supervisor_district
+        data_type: varchar(120)
+      
+      - name: neighborhood_district
+        data_type: varchar(120)
+      
+      - name: point
+        data_type: varchar(120)
+      
+      - name: data_as_of
+        data_type: timestamp
+      
+      - name: data_loaded_at
+        data_type: timestamp
+    config:
+      post-hook:
+        - "DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'fire_incidents') THEN ALTER TABLE fire_incidents ADD CONSTRAINT fire_incidents_pk PRIMARY KEY (id); END IF; END; $$"
+        - "DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_indexes WHERE tablename = 'fire_incidents' AND indexname = 'idx_battalion') THEN CREATE INDEX idx_battalion ON fire_incidents (battalion); END IF;  END; $$"
+        - "DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_indexes WHERE tablename = 'fire_incidents' AND indexname = 'idx_supervisor_district') THEN CREATE INDEX idx_supervisor_district ON fire_incidents (supervisor_district); END IF;  END; $$"
+        - "DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_indexes WHERE tablename = 'fire_incidents' AND indexname = 'idx_incident_date') THEN CREATE INDEX idx_incident_date ON fire_incidents (incident_date); END IF;  END; $$"
+
+
