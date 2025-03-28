@@ -3,10 +3,10 @@ data_engineer_challenge:
   outputs:
     dev:
       type: postgres
-      host: "localhost"
+      host: "{{ env_var('DBT_POSTGRES_HOST') }}"
       user: "{{ env_var('DBT_POSTGRES_USER') }}"
       password: "{{ env_var('DBT_POSTGRES_PASSWORD') }}"
-      port: 5433
-      dbname: "default"
-      schema: "public"
+      port: "{{ env_var('DBT_POSTGRES_PORT')| int }}"
+      dbname: "{{ env_var('DBT_POSTGRES_DB') }}"
+      schema: "{{ env_var('DBT_POSTGRES_SCHEMA') }}"
       threads: 4
