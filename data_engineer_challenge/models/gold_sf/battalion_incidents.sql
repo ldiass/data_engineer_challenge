@@ -40,6 +40,7 @@ with source_data as (
             THEN 1
         END) as count_automatic_extinguishing_system_present
     from {{ref('fire_incidents')}}
+    where deleted_at is null
     group by battalion, date_trunc('month', incident_date)
 )
 select *

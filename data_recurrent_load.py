@@ -59,5 +59,5 @@ if __name__=="__main__":
     
     last_load_ts=get_latest_load_timestamp(conn, bronze_schema, bronze_table_name)
     fetch_sfgov_data(last_load_ts, file_prefix)
-    #load_csv_to_postgres(csv_path, schema, table_name, conn)
+    load_csv_to_postgres(file_prefix, bronze_schema, bronze_table_name, conn)
     conn.close()
