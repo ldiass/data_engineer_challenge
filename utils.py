@@ -1,5 +1,6 @@
 import os
 import psycopg2
+import logging
 
 # Database connection details
 DB_HOST = os.getenv("DBT_POSTGRES_HOST")
@@ -25,17 +26,25 @@ def load_csv_to_postgres(file_path: str, schema: str, table_name: str, conn: psy
     dbname (str): Database name.
     schema (str): Database schema where the table resides.
     """
+
+    logging.info(f"Copying {file_path} to table {schema}.{table_name}")
+
     # Load CSV data
     sql_copy = f"""COPY {schema}.{table_name} 
         FROM '/{file_path}' 
         DELIMITER ',' 
         CSV HEADER;"""
     
-    cursor = conn.cursor()
-    cursor.execute(sql_copy)
-    
-    conn.commit()
-    cursor.close()
-    conn.close()
-    print("CSV data loaded into PostgreSQL.")
-    return 0
+    try:
+        out_code=0
+        cursor = conn.cursor()
+        cursor.execute(sql_copy)
+        conn.commit()
+        logging.info(f"File {file_path} loaded into {schema}.{table_name} succesfully")
+    except Exception as e:
+        logging.error(f"{e}")
+        out_code=-1
+    finally:
+        cursor.close()
+        conn.close()
+        return out_code

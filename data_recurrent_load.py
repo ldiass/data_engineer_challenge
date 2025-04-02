@@ -22,6 +22,8 @@ def fetch_sfgov_data(data_as_of: str, file_prefix:str):
     query_url = f"{base_url}?$where=data_as_of>'{data_as_of}'"
     
     try:
+        logging.info(f"Fetching SF fire incidents daily data to {file_prefix}")
+
         response = requests.get(query_url)
         response.raise_for_status()  # Check for HTTP request errors
 
@@ -32,20 +34,27 @@ def fetch_sfgov_data(data_as_of: str, file_prefix:str):
             for chunk in response.iter_content(chunk_size=8192):
                 file.write(chunk)
         
+        logging.info(f"SF fire incidents daily data saved in {file_prefix}")
         return 0
     
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
-        return None
+        logging.critical(f"Error fetching data: {e}")
+        return -1
 
 
 def get_latest_load_timestamp(conn, schema, table_name):
-        cursor = conn.cursor()
-        cursor.execute(f"select max(data_as_of) from {schema}.{table_name}")
-        r=cursor.fetchall()
-        cursor.close()
-        latest_load=r[0][0].strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3]
-        return latest_load
+        try:
+            cursor = conn.cursor()
+            cursor.execute(f"select max(data_as_of) from {schema}.{table_name}")
+            r=cursor.fetchall()
+            latest_load=r[0][0].strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3]
+            logging.info(f"Timestamp of most updated data loaded previously: {latest_load}")
+        except Exception as e:
+            latest_load="NA"
+            logging.error(f"{e}")
+        finally:
+            cursor.close()
+            return latest_load
 
 if __name__=="__main__":
 
@@ -59,5 +68,5 @@ if __name__=="__main__":
     
     last_load_ts=get_latest_load_timestamp(conn, bronze_schema, bronze_table_name)
     fetch_sfgov_data(last_load_ts, file_prefix)
-    #load_csv_to_postgres(csv_path, schema, table_name, conn)
+    load_csv_to_postgres(file_prefix, bronze_schema, bronze_table_name, conn)
     conn.close()
