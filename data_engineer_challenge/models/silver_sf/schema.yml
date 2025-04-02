@@ -257,6 +257,9 @@ models:
       
       - name: data_loaded_at
         data_type: timestamp
+      
+      - name: deleted_at
+        data_type: timestamp
     config:
       post-hook:
         - "DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'fire_incidents') THEN ALTER TABLE fire_incidents ADD CONSTRAINT fire_incidents_pk PRIMARY KEY (id); END IF; END; $$"

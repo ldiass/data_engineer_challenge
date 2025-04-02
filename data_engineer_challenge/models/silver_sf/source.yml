@@ -71,3 +71,4 @@ sources:
           - name: point
           - name: data_as_of
           - name: data_loaded_at
+          - name: deleted_at

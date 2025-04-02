@@ -83,7 +83,8 @@ def create_table(conn: psycopg2.connect, schema: str, table_name: str) -> int:
         neighborhood_district TEXT,
         point TEXT,
         data_as_of TIMESTAMP,
-        data_loaded_at TIMESTAMP
+        data_loaded_at TIMESTAMP,
+        --deleted_at TEXT --Current implementation will break, once the field doesn't exist in the actual source file
     );
 
     CREATE INDEX IF NOT EXISTS data_as_of_idx ON {schema}.{table_name} (data_as_of);
@@ -92,35 +93,6 @@ def create_table(conn: psycopg2.connect, schema: str, table_name: str) -> int:
     cursor.execute(create_table_query)
     conn.commit()
     cursor.close()
-    return 0
-
-def load_csv_to_postgres(file_path: str, schema: str, table_name: str, conn: psycopg2.connect) -> int:
-    """
-    Loads data from a CSV file into a PostgreSQL table.
-    
-    Parameters:
-    file_path (str): Path to the CSV file to be loaded.
-    host (str): Database host.
-    user (str): Database user.
-    password (str): Database password.
-    port (int): Database port.
-    dbname (str): Database name.
-    schema (str): Database schema where the table resides.
-    """
-    
-    # Load CSV data
-    cursor = conn.cursor()
-
-    sql_copy = f"""COPY {schema}.{table_name} 
-        FROM '/{file_path}' 
-        DELIMITER ',' 
-        CSV HEADER;"""
-    cursor.execute(sql_copy)
-    
-    conn.commit()
-    cursor.close()
-    conn.close()
-    print("CSV data loaded into PostgreSQL.")
     return 0
 
 

@@ -73,6 +73,7 @@ with source_data as (
         , point
         , data_as_of::timestamp
         , data_loaded_at::timestamp
+        , deleted_at::timestamp
         , row_number() over(partition by incident_number order by id desc) as row_num
     from {{source('bronze_sf', 'fire_incidents')}}
     {% if is_incremental() %}
@@ -145,5 +146,6 @@ select incident_number
     , point
     , data_as_of
     , data_loaded_at
+    , deleted_at
 from source_data
 where row_num=1
