@@ -3,6 +3,7 @@ import psycopg2
 import logging
 
 # Database connection details
+DB_TYPE = "postgresql"
 DB_HOST = os.getenv("DBT_POSTGRES_HOST")
 DB_USER = os.getenv("DBT_POSTGRES_USER")
 DB_PASSWORD = os.getenv("DBT_POSTGRES_PASSWORD")
@@ -12,6 +13,9 @@ DB_NAME = os.getenv("DBT_POSTGRES_DB")
 #Bronze target
 bronze_schema= "bronze_sf"
 bronze_table_name="fire_incidents"
+
+#Gold target
+gold_schema="gold_sf"
 
 def load_csv_to_postgres(file_path: str, schema: str, table_name: str, conn: psycopg2.connect) -> int:
     """
